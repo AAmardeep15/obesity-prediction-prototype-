@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obesity Risk Prediction System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1>🏥 Obesity Risk Prediction System</h1>
+                <p class="subtitle">Personalized Health Assessment & Nutrition Recommendations</p>
+                <div class="sdg-badge">UN SDG 3: Good Health and Well-Being</div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Input Form -->
+            <section class="form-section">
+                <h2>📋 Patient Information</h2>
+                <form id="predictionForm">
+                    <!-- Personal Information -->
+                    <div class="form-group-section">
+                        <h3>Personal Details</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="age">Age (years)</label>
+                                <input type="number" id="age" name="age" min="10" max="100" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="gender">Gender</label>
+                                <select id="gender" name="gender" required>
+                                    <option value="">Select...</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="height">Height (meters)</label>
+                                <input type="number" id="height" name="height" step="0.01" min="1.0" max="2.5" placeholder="e.g., 1.75" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="weight">Weight (kg)</label>
+                                <input type="number" id="weight" name="weight" step="0.1" min="30" max="200" placeholder="e.g., 70" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Family & Lifestyle -->
+                    <div class="form-group-section">
+                        <h3>Family History & Lifestyle</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="family_history">Family History of Overweight</label>
+                                <select id="family_history" name="family_history" required>
+                                    <option value="">Select...</option>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="smoke">Do you smoke?</label>
+                                <select id="smoke" name="smoke" required>
+                                    <option value="">Select...</option>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Eating Habits -->
+                    <div class="form-group-section">
+                        <h3>Eating Habits</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="favc">Frequent High Caloric Food</label>
+                                <select id="favc" name="favc" required>
+                                    <option value="">Select...</option>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="fcvc">Vegetable Frequency (1-3)</label>
+                                <input type="number" id="fcvc" name="fcvc" step="0.1" min="1" max="3" placeholder="e.g., 2.5" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="ncp">Number of Main Meals</label>
+                                <input type="number" id="ncp" name="ncp" min="1" max="4" placeholder="e.g., 3" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="caec">Food Between Meals</label>
+                                <select id="caec" name="caec" required>
+                                    <option value="">Select...</option>
+                                    <option value="no">No</option>
+                                    <option value="Sometimes">Sometimes</option>
+                                    <option value="Frequently">Frequently</option>
+                                    <option value="Always">Always</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="ch2o">Water Intake (liters/day)</label>
+                                <input type="number" id="ch2o" name="ch2o" step="0.1" min="1" max="3" placeholder="e.g., 2.0" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="scc">Calorie Monitoring</label>
+                                <select id="scc" name="scc" required>
+                                    <option value="">Select...</option>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="calc">Alcohol Consumption</label>
+                                <select id="calc" name="calc" required>
+                                    <option value="">Select...</option>
+                                    <option value="no">No</option>
+                                    <option value="Sometimes">Sometimes</option>
+                                    <option value="Frequently">Frequently</option>
+                                    <option value="Always">Always</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Physical Activity -->
+                    <div class="form-group-section">
+                        <h3>Physical Activity</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="faf">Physical Activity Frequency (0-3)</label>
+                                <input type="number" id="faf" name="faf" min="0" max="3" placeholder="e.g., 2" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="tue">Technology Use (hours/day)</label>
+                                <input type="number" id="tue" name="tue" min="0" max="2" placeholder="e.g., 1" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="mtrans">Main Transportation</label>
+                                <select id="mtrans" name="mtrans" required>
+                                    <option value="">Select...</option>
+                                    <option value="Automobile">Automobile</option>
+                                    <option value="Motorbike">Motorbike</option>
+                                    <option value="Bike">Bike</option>
+                                    <option value="Public_Transportation">Public Transportation</option>
+                                    <option value="Walking">Walking</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="submit-btn">🔍 Analyze Health Risk</button>
+                </form>
+            </section>
+
+            <!-- Results Section -->
+            <section id="resultsSection" class="results-section" style="display: none;">
+                <h2>📊 Analysis Results</h2>
+                
+                <!-- Prediction Results -->
+                <div class="result-card prediction-card">
+                    <h3>🎯 Obesity Risk Assessment</h3>
+                    <div class="risk-level" id="riskLevel"></div>
+                    <div class="result-details">
+                        <div class="result-item">
+                            <span class="label">BMI:</span>
+                            <span class="value" id="bmiValue"></span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Confidence:</span>
+                            <span class="value" id="confidenceValue"></span>
+                        </div>
+                    </div>
+                    <p class="risk-description" id="riskDescription"></p>
+                </div>
+
+                <!-- Nutrition Recommendations -->
+                <div class="result-card nutrition-card">
+                    <h3>🍎 Personalized Nutrition Plan</h3>
+                    <div class="calorie-target">
+                        <h4>Daily Calorie Target</h4>
+                        <p class="calorie-range" id="calorieRange"></p>
+                        <p class="goal" id="nutritionGoal"></p>
+                    </div>
+
+                    <div class="meal-plan">
+                        <h4>📋 Sample Daily Meal Plan</h4>
+                        <div class="meals-grid">
+                            <div class="meal-section">
+                                <h5>🌅 Breakfast</h5>
+                                <ul id="breakfastItems"></ul>
+                            </div>
+                            <div class="meal-section">
+                                <h5>☀️ Lunch</h5>
+                                <ul id="lunchItems"></ul>
+                            </div>
+                            <div class="meal-section">
+                                <h5>🌙 Dinner</h5>
+                                <ul id="dinnerItems"></ul>
+                            </div>
+                            <div class="meal-section">
+                                <h5>🍪 Snacks</h5>
+                                <ul id="snackItems"></ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lifestyle-tips">
+                        <h4>💡 Lifestyle Recommendations</h4>
+                        <ul id="lifestyleTips"></ul>
+                    </div>
+                </div>
+
+                <button onclick="resetForm()" class="reset-btn">🔄 New Assessment</button>
+            </section>
+
+            <!-- Loading Spinner -->
+            <div id="loadingSpinner" class="loading-spinner" style="display: none;">
+                <div class="spinner"></div>
+                <p>Analyzing your health data...</p>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2026 Obesity Risk Prediction System | UN SDG 3: Good Health and Well-Being</p>
+            <p>Powered by Ensemble Machine Learning</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
