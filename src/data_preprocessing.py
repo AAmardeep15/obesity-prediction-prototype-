@@ -73,7 +73,7 @@ class ObesityDataPreprocessor:
         df_clean = df.copy()
         
         # Check for missing values
-        missing_count = df_clean.isnull().sum().sum()
+        missing_count = df_clkmean.isnull().sum().sum()
         
         if missing_count > 0:
             print(f"⚠ Found {missing_count} missing values. Imputing...")
